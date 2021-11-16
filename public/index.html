@@ -58,7 +58,7 @@
         <img class="logo" src="./logo/logo.png">
         <div>
             <input id="filter" type="search">
-            <button id="key"> Search</button>
+            <button id="key" onclick="search(document.getElementById('filter').value)"> Search</button>
         </div>
     </div>
     <div class="container">
@@ -72,13 +72,13 @@
         var storage = document.getElementById('shoes');
         var add = [];
         var f = document.getElementById("filter"); 
-        var search = document.getElementById("key");
 
-        function adicionarPasta() {
+        function listar(value) {
             fetch('./data')
                 .then(res => res.json())
                 .then(shoes => {
-                    storage.innerHTML = ''
+                    storage.innerHTML = '';
+                    add = []
                     shoes.map(pair => {
                         var pairName = pair.nome;
                         var shoeRef = "[" + pairName.slice(0,7) + "]";
@@ -86,6 +86,9 @@
                         var shoeName = pairName.replace(".jpeg", '');
                         var onde = pair.caminho;
                         var shoeCaminho = onde.replace("public", '');
+
+
+
                         add.push({
                             material    : shoeName,
                             referencia  : shoeRef,
@@ -99,16 +102,18 @@
                         </div>`
 
                     })
-                    console.log(add[0].material)
             })
         }
 
-        adicionarPasta()
+        listar();
 
-        search.addEventListener('click', function() {
-            var filter = JSON.stringify(f.value.toLowerCase());
-            console.log(filter)
-        })
+        function search(key) {
+            if(key.length>=3) {
+                listar(key)
+            } else {
+                alert("Insira pelo menos 3 caracteres!");
+            }
+        }
 
 
     </script>
