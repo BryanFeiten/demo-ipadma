@@ -57,8 +57,8 @@
     <div id="header">
         <img class="logo" src="./logo/logo.png">
         <div>
-            <input type="search">
-            <button> Search</button>
+            <input id="filter" type="search">
+            <button id="key"> Search</button>
         </div>
     </div>
     <div class="container">
@@ -70,32 +70,46 @@
     <script>
 
         var storage = document.getElementById('shoes');
-        var add = '';
+        var add = [];
+        var f = document.getElementById("filter"); 
+        var search = document.getElementById("key");
 
-        fetch('./data')
-                    .then(res => res.json())
-                    .then(shoes => {
-                        
-                        shoes.map(pair => {
-                            var pairName = pair.nome;
-                            var shoeRef = "[" + pairName.slice(0,7) + "]";
-                            pairName = pairName.substring(8,pairName.lenght);
-                            var shoeName = pairName.replace(".jpeg", '');
-                            var onde = pair.caminho;
-                            var shoeCaminho = onde.replace("public", '');
+        function adicionarPasta() {
+            fetch('./data')
+                .then(res => res.json())
+                .then(shoes => {
+                    storage.innerHTML = ''
+                    shoes.map(pair => {
+                        var pairName = pair.nome;
+                        var shoeRef = "[" + pairName.slice(0,7) + "]";
+                        pairName = pairName.substring(8,pairName.lenght);
+                        var shoeName = pairName.replace(".jpeg", '');
+                        var onde = pair.caminho;
+                        var shoeCaminho = onde.replace("public", '');
+                        add.push({
+                            material    : shoeName,
+                            referencia  : shoeRef,
+                            caminho     : onde
+                        });
+                        storage.innerHTML += `
+                        <div class="item">
+                            <img class="image" src="${shoeCaminho}">
+                            <p>${shoeName}</p>
+                            <p>${shoeRef}</p>
+                        </div>`
 
-                            console.log(shoeCaminho)
-
-                            add += `
-                            <div class="item">
-                                <img class="image" src="${shoeCaminho}">
-                                <p>${shoeName}</p>
-                                <p>${shoeRef}</p>
-                            </div>`
-
-                        })
-                            storage.innerHTML = add
                     })
+                    console.log(add[0].material)
+            })
+        }
+
+        adicionarPasta()
+
+        search.addEventListener('click', function() {
+            var filter = JSON.stringify(f.value.toLowerCase());
+            console.log(filter)
+        })
+
 
     </script>
 
