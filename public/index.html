@@ -124,7 +124,7 @@
                     filter.map(doc => {
                         storage.innerHTML += `
                             <div class="item">
-                                <img class="image" src="${doc.caminho.substring(doc.caminho.indexOf("/"),doc.caminho.length)}">
+                                <img class="image" src="${doc.caminho.substring(doc.caminho.indexOf("c")+1,doc.caminho.length)}">
                                 <p>${doc.material}</p>
                                 <p>${doc.referencia}</p>
                             </div>`
