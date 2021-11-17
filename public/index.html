@@ -72,12 +72,13 @@
         var storage = document.getElementById('shoes');
         var add = [];
         var f = document.getElementById("filter"); 
+        var filter = [];
 
         function listar(value) {
             fetch('./data')
                 .then(res => res.json())
                 .then(shoes => {
-                    storage.innerHTML = '';
+                    storage.innerText = '';
                     add = []
                     shoes.map(pair => {
                         var pairName = pair.nome;
@@ -87,7 +88,7 @@
                         var onde = pair.caminho;
                         var shoeCaminho = onde.replace("public", '');
 
-
+                        console.log(shoeName, shoeCaminho, shoeRef)
 
                         add.push({
                             material    : shoeName,
@@ -108,14 +109,32 @@
         listar();
 
         function search(key) {
+            f.value = ''
+            filter = [];
             if(key.length>=3) {
-                listar(key)
+                // storage.innerText = '';
+                for(i in add) {
+                    if(add[i].material.indexOf(key)>-1 || add[i].referencia.indexOf(key)>-1) {
+                        filter.push(add[i]);
+                    }
+                }
+                if(filter.length>0) {
+                    storage.innerText = ''
+                    filter.map(doc => {
+                        storage.innerHTML += `
+                            <div class="item">
+                                <img class="image" src="${doc.caminho.substring(doc.caminho.indexOf("/"),doc.caminho.length)}">
+                                <p>${doc.material}</p>
+                                <p>${doc.referencia}</p>
+                            </div>`
+                    })
+                }
             } else {
                 alert("Insira pelo menos 3 caracteres!");
             }
         }
 
-
+        
     </script>
 
 </body>
