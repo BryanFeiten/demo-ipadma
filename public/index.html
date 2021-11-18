@@ -58,6 +58,7 @@
     <div id="header">
         <img class="logo" src="./logo/logo.png">
         <div>
+            <button onclick="html_get('http:/\/localhost:5000/func?func=update_list')">Atualizar</button>
             <input id="filter" type="search">
             <button id="key" onclick="search(document.getElementById('filter').value)"> Search</button>
         </div>
@@ -137,6 +138,7 @@
 
         
     </script>
+    <script src="js/fetch.js"></script>
 
 </body>
 </html>

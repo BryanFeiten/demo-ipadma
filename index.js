@@ -33,11 +33,25 @@ function listarArquivos(base) {
 
 app.use(cors())
 
+//rota das funções
+app.use('/func',(req,res)=>{
+    //pega o valor por meio de um query ex: ?variavel=string
+    if(req.query.func ===  'update_list'){
+        //atualizar a lista de arquivos
+        listarArquivos("./public" + raiz);
+        console.log('updated')
+        res.send('updated')
+    }
+})
+
+//correção para o pkg do node funcionar corretamente
+app.use(express.static('./public')); 
+
+
 app.get('/data', (req, res) => {
     res.send(data);
 })
 
-app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.listen(port, () => console.log(`app running on port ${port}`))
 
