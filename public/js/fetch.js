@@ -1,4 +1,4 @@
-async function html_get($opt){
+async function htmlGet($opt){
     var url, opt ,func;
      if(typeof($opt) === 'string'||"String" ){
         url = $opt;

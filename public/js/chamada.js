@@ -1,3 +1,4 @@
-function c_update(){
-    html_get('localhost:5000/func?func=update_list');
+function cUpdate(){
+    let serverName = window.location.origin
+    htmlGet(`${serverName}/func?func=update_list`);
 }
