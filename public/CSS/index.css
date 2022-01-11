@@ -1,0 +1,65 @@
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo {
+    margin-left: 20px;
+    width: 30%;
+    height: 30%;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.search-container input, button {
+    padding: 5px;
+    margin: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+}
+
+#shoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cardItem {
+    /* border: 5px solid black; */
+    width: 350px;
+    height: 350px;
+    text-align: center;
+    box-shadow: 0 2px 7px 1px rgba(0,0,0,0.2);
+
+    margin: 10px;
+}
+
+.image {
+    padding: 20px 20px 5px 20px;
+    height: 275px;
+    width: 300px;
+    object-fit: cover;
+}
+
+#shoeRef {
+    font-size: 12px;
+}

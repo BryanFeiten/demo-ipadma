@@ -4,142 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/index.css">
     <title>Calçados</title>
-    <style>
-
-        * {
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 0;
-            margin: 0;
-        }
-
-        #header {
-            display: flex;
-            margin: 5px;
-            justify-content: space-evenly;
-            align-items: center;
-        }
-
-        .logo {
-            width: 30%;
-            height: 30%;
-        }
-
-        .container {
-            margin: auto;
-            width: 90%;
-        }
-
-        #shoes {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .item {
-            /* border: 5px solid black; */
-            width: 350px;
-            height: 350px;
-            text-align: center;
-            box-shadow: 9px 7px 5px rgba(50, 50, 50, 0.35);
-            margin: 5px;
-        }
-
-        .image {
-            padding: 20px 20px 5px 20px;
-            height: 275px;
-            width: 300px;
-            object-fit: cover;
-        }
-
-
-    </style>
 </head>
 <body>
-    <div id="header">
-        <img class="logo" src="./logo/logo.png">
-        <div>
-            <button onclick="cUpdate()">Atualizar</button>
-            <input id="filter" type="search">
-            <button id="key" onclick="search(document.getElementById('filter').value)"> Search</button>
-        </div>
-    </div>
     <div class="container">
-        <div id="shoes">
-
-        </div>
+        <header>
+            <img class="logo" src="./logo/logo.png">
+            <navbar class="search-container">
+                <!-- <button onclick="cUpdate()">Atualizar</button> -->
+                <input id="filter" type="search">
+                <button id="key" onclick="search(document.getElementById('filter').value)"> Search</button>
+            </navbar>
+        </header>
+        <main id="shoes">
+        </main>
     </div>
 
-    <script>
-
-        var storage = document.getElementById('shoes');
-        var add = [];
-        var f = document.getElementById("filter"); 
-        var filter = [];
-
-        function listar(value) {
-            fetch('./data')
-                .then(res => res.json())
-                .then(shoes => {
-                    storage.innerText = '';
-                    add = []
-                    shoes.map(pair => {
-                        var pairName = pair.nome;
-                        var shoeRef = "[" + pairName.slice(0,7) + "]";
-                        pairName = pairName.substring(8,pairName.lenght);
-                        var shoeName = pairName.replace(".jpeg", '');
-                        var onde = pair.caminho;
-                        var shoeCaminho = onde.replace("public", '');
-
-                        console.log(shoeName, shoeCaminho, shoeRef)
-
-                        add.push({
-                            material    : shoeName,
-                            referencia  : shoeRef,
-                            caminho     : onde
-                        });
-                        storage.innerHTML += `
-                        <div class="item">
-                            <img class="image" src="${shoeCaminho}">
-                            <p>${shoeName}</p>
-                            <p>${shoeRef}</p>
-                        </div>`
-
-                    })
-            })
-        }
-
-        listar();
-
-        function search(key) {
-            f.value = ''
-            filter = [];
-            if(key.length>=3) {
-                // storage.innerText = '';
-                for(i in add) {
-                    if(add[i].material.indexOf(key)>-1 || add[i].referencia.indexOf(key)>-1) {
-                        filter.push(add[i]);
-                    }
-                }
-                if(filter.length>0) {
-                    storage.innerText = ''
-                    filter.map(doc => {
-                        storage.innerHTML += `
-                            <div class="item">
-                                <img class="image" src="${doc.caminho.substring(doc.caminho.indexOf("c")+1,doc.caminho.length)}">
-                                <p>${doc.material}</p>
-                                <p>${doc.referencia}</p>
-                            </div>`
-                    })
-                }
-            } else {
-                alert("Insira pelo menos 3 caracteres!");
-            }
-        }
-
-        
-    </script>
-    <script src="js/fetch.js"></script>
-    <script src="js/chamada.js"></script>
+    <script src="JS/scripts.js"></script>
 
 </body>
 </html>
